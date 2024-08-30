@@ -47,12 +47,12 @@ class RegisterController extends Controller
     {
         $userSocial = Socialite::driver($social)->user();
         // var_dump($social);
-        // dd($userSocial->id);
+        // dd($userSocial);
 
         $existingUser = User::where(['email' => $userSocial->email])->first();
         if ($existingUser) {
             $existingUser->update([
-                'provider' => $social,
+                'provider' => ($social == 'twitter') ? 'x' : $social,
                 'provider_id' => $userSocial->id,
             ]);
             Auth::login($existingUser);
@@ -61,7 +61,7 @@ class RegisterController extends Controller
             $newUser = User::create([
                 'name'  => $userSocial->name,
                 'email' => $userSocial->email,
-                'provider' => $social,
+                'provider' => ($social == 'twitter') ? 'x' : $social,
                 'provider_id' => $userSocial->id,
             ]);
             Auth::login($newUser);
