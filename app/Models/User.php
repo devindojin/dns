@@ -24,6 +24,8 @@ class User extends Authenticatable
         'phone',
         'location',
         'about_me',
+        'provider',
+        'provider_id',
     ];
 
     /**
@@ -49,5 +51,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Domain::class);
     }
-    
 }
